@@ -37,10 +37,11 @@ const Cart = () => {
             .catch(err => console.log(err.data))
         setTotal(0)
     }
+    /*
     if (total == 0) {
         buy();
         setTotal(1)
-    }
+    }*/
     const deleteProductFromCart = (id) => {
         console.log(id)
         const URL = `https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`

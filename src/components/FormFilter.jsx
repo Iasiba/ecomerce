@@ -23,6 +23,7 @@ const FormFilter = () => {
         ProductsFilter.push(data[i])
       }
     }
+    
      console.log(dataFilter,ProductsFilter)
     dispatch(setFilterProducts(ProductsFilter))
   }

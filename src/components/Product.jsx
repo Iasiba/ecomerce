@@ -8,6 +8,7 @@ import ProductCard from './ProductCard'
 import { setId } from '../store/slices/IdSlice'
 import { setProductName } from '../store/slices/ProductNameSlice'
 import { setFilterProducts } from '../store/slices/ProductsFilterSlice'
+import getConfig from '../utils/getConfig'
 
 const Imgs = ['', 'second-img', 'third-img']
 
@@ -59,7 +60,11 @@ const ProductScreen = () => {
             setCurrentIndex(next)
         }
     }
-
+    const addToCart = (id) => {
+        const URL = "https://ecommerce-api-react.herokuapp.com/api/v1/cart"
+        axios.post(URL, { id: id, quantity: 1 }, getConfig())
+          .then(data => console.log(data))
+      }
     return (
         <div className='product'>
             <div className='slider'>
@@ -108,7 +113,7 @@ const ProductScreen = () => {
                         <div onClick={plusOne} className='product-info__plus'>+</div>
                     */}
                 </div>
-                <button>{" Add to Cart "} <i className="fa-solid fa-cart-plus"></i></button>
+                <button onClick={()=>addToCart(product?.id)}>{" Add to Cart "} <i className="fa-solid fa-cart-plus"></i></button>
                 <br />
             </article>
             {/**
