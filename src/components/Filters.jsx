@@ -14,17 +14,15 @@ const Filters = () => {
     const FilterProducts = filter => {
         dispatch(setFilter(filter))
         //if(Filter!=""){
-
         console.log(Filter)
-
         //}
 
     }
     const setProducts = (Filter) => {
-        if(Filter!=""){
-        const ProductsFilter = data ? data.filter(e => e.category.name === Filter) : []
-        dispatch(setFilterProducts(ProductsFilter))
-        console.log(ProductsFilter)
+        if (Filter != "") {
+            const ProductsFilter = data ? data.filter(e => e.category.name === Filter) : []
+            dispatch(setFilterProducts(ProductsFilter))
+            console.log(ProductsFilter)
         }
     }
 
@@ -45,7 +43,7 @@ const Filters = () => {
                 <i className='bx bx-chevron-up'></i>
             </div>
             <ul>
-                <Link to={'/'} className='Filter' onClick={() => setProducts("")}>All Products</Link>
+                <Link to={''} className='Filter' onClick={() => setProducts("")}>All Products</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smart TV")}>Smart TV</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Computers")}>Computers</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smartphones")}>Smartphones</Link>

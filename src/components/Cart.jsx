@@ -9,9 +9,9 @@ const Cart = () => {
         axios.get(URL, getConfig())
             .then(res => setCart(res.data.data.cart.products))
             .catch(err => console.log(err))
-            console.log(total)
+        console.log(total)
     }, [total])
- 
+
     if (!total && cart) {
         let aux = 0
         for (let i = 0; i < cart.length; i++) {
@@ -37,7 +37,10 @@ const Cart = () => {
             .catch(err => console.log(err.data))
         setTotal(0)
     }
-if(total==0){buy();setTotal(1)}
+    if (total == 0) {
+        buy();
+        setTotal(1)
+    }
     const deleteProductFromCart = (id) => {
         console.log(id)
         const URL = `https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`
@@ -46,44 +49,44 @@ if(total==0){buy();setTotal(1)}
             .catch(err => console.log(err.data))
     }
     return (
-                cart && <div className="cart-modal">
+        cart && <div className="cart-modal">
             <div className="cart">
-                    <div className="minimalist-scrollbar">
-                        <h4>Carrito de compras</h4>
-                        <ul className="cart-products-list">
-                            {
-                                cart?.map(product => (
-                                    <li key={product.id}>
-                                        <div className="product-info">
-                                            <div className="details">
-                                                <span className="brand">{product.brand}</span>
-                                                <a className="name" href="#/product/3">{product.title}</a>
-                                                <div className="quantity">{product.productsInCart.quantity}</div>
-                                            </div>
-                                            <div className="button-delete">
-                                                <button onClick={() =>(setTotal(total-product.price * product.productsInCart.quantity), deleteProductFromCart(product.id) )}><i className='bx bx-trash'></i></button>
-                                            </div>
+                <div className="minimalist-scrollbar">
+                    <h4>Carrito de compras</h4>
+                    <ul className="cart-products-list">
+                        {
+                            cart?.map(product => (
+                                <li key={product.id}>
+                                    <div className="product-info">
+                                        <div className="details">
+                                            <span className="brand">{product.brand}</span>
+                                            <a className="name" href="#/product/3">{product.title}</a>
+                                            <div className="quantity">{product.productsInCart.quantity}</div>
                                         </div>
-                                        <div className="total">
-                                            <span className="label">Total: </span>
-                                            <b>{product.price * product.productsInCart.quantity}</b>
+                                        <div className="button-delete">
+                                            <button onClick={() => (setTotal(total - product.price * product.productsInCart.quantity), deleteProductFromCart(product.id))}><i className='bx bx-trash'></i></button>
                                         </div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                    <div className="checkout-section">
-                        <div className="total">
-                            <span className="label">Total:</span>
-                            <b>${total}</b>
-                        </div>
-                        <button className="buy_button" onClick={buy}>Buy</button>
-                    </div>
+                                    </div>
+                                    <div className="total">
+                                        <span className="label">Total: </span>
+                                        <b>{product.price * product.productsInCart.quantity}</b>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </div>
-            
+                <div className="checkout-section">
+                    <div className="total">
+                        <span className="label">Total:</span>
+                        <b>${total}</b>
+                    </div>
+                    <button className="buy_button" onClick={buy}>Buy</button>
+                </div>
+            </div>
+
         </div>
-                        )
+    )
 }
 
 export default Cart
