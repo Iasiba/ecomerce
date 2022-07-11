@@ -6,6 +6,7 @@ import usehook from '../hooks/usehook'
 import { setFilter } from '../store/slices/FilterSlice'
 import { useSelector } from 'react-redux/es/exports'
 import { setFilterProducts } from '../store/slices/ProductsFilterSlice'
+import { setProductName } from '../store/slices/ProductNameSlice'
 import { useState } from 'react'
 const Filters = () => {
     const [FilterPrice, setFilterPrice] = useState(false)
@@ -13,7 +14,6 @@ const Filters = () => {
     const dispatch = useDispatch()
     const { data } = usehook()
     const Filter = useSelector(state => state.Filter)
-
     const FilterProducts = filter => {
         dispatch(setFilter(filter))
         //if(Filter!=""){
@@ -42,7 +42,7 @@ const Filters = () => {
                 { FilterPrice?<i className='bx bx-chevron-up'></i>:<i className='bx bx-chevron-down'></i>}
             </div>
             {FilterCategory&&<ul>
-                <Link to={''} className='Filter' onClick={() => setProducts("")}>All Products</Link>
+                <Link to={''} className='Filter' onClick={() => dispatch(dispatch(setProductName("")))}>All Products</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smart TV")}>Smart TV</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Computers")}>Computers</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smartphones")}>Smartphones</Link>
