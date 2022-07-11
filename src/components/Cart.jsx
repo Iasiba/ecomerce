@@ -4,22 +4,30 @@ import getConfig from '../utils/getConfig'
 const Cart = () => {
     const [cart, setCart] = useState()
     const [total, setTotal] = useState(0)
+    const [render, setRender] = useState(false)
     useEffect(() => {
         const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
         axios.get(URL, getConfig())
-            .then(res => setCart(res.data.data.cart.products))
+            .then(res => {
+                setCart(res.data.data.cart.products),
+tot()
+            })
             .catch(err => console.log(err))
-        console.log(total)
-    }, [total])
+        /*.finally(()=>
+            {if (!total && cart) {
+                let aux = 0
+                for (let i = 0; i < cart.length; i++) {
+                    aux += parseInt(cart[i].price * cart[i].productsInCart.quantity)
+                    console.log(cart[i])
+                }
+                setTotal(aux)
+            }}
+        )*/
 
-    if (!total && cart) {
-        let aux = 0
-        for (let i = 0; i < cart.length; i++) {
-            aux += parseInt(cart[i].price * cart[i].productsInCart.quantity)
-            console.log(cart[i])
-        }
-        setTotal(aux)
-    }
+        console.log(total)
+    }, [render])
+
+
     const buy = () => {
         const URL = 'https://ecommerce-api-react.herokuapp.com/api/v1/purchases'
         const objPurchase = {
@@ -36,19 +44,46 @@ const Cart = () => {
             })
             .catch(err => console.log(err.data))
         setTotal(0)
+        setRender(!render)
+        const UR = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+        axios.get(UR, getConfig())
+            .then(res => {
+                setCart(res.data.data.cart.products)
+            })
+            .catch(err => console.log(err))
     }
     /*
     if (total == 0) {
         buy();
         setTotal(1)
     }*/
+    function tot() {
+        if (!total && cart) {
+            let aux = 0
+            for (let i = 0; i < cart.length; i++) {
+                aux += parseInt(cart[i].price * cart[i].productsInCart.quantity)
+                console.log(cart[i])
+            }
+            setTotal(aux)
+        }
+    }
     const deleteProductFromCart = (id) => {
         console.log(id)
         const URL = `https://ecommerce-api-react.herokuapp.com/api/v1/cart/${id}`
         axios.delete(URL, getConfig())
-            .then(res => console.log(res.data))
+            .then(res => tot())
             .catch(err => console.log(err.data))
+            .finally(setTotal(setRender(!render)))//total - product.price * product.productsInCart.quantity), 
+        //setTotal(total-price)
+        const UR = 'https://ecommerce-api-react.herokuapp.com/api/v1/cart'
+        axios.get(UR, getConfig())
+            .then(res => {
+                setCart(res.data.data.cart.products)
+            })
+            .catch(err => console.log(err))
     }
+
+
     return (
         cart && <div className="cart-modal">
             <div className="cart">
@@ -65,7 +100,7 @@ const Cart = () => {
                                             <div className="quantity">{product.productsInCart.quantity}</div>
                                         </div>
                                         <div className="button-delete">
-                                            <button onClick={() => (setTotal(total - product.price * product.productsInCart.quantity), deleteProductFromCart(product.id))}><i className='bx bx-trash'></i></button>
+                                            <button onClick={() => deleteProductFromCart(product.id)}><i className='bx bx-trash'></i></button>
                                         </div>
                                     </div>
                                     <div className="total">

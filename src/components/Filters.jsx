@@ -26,6 +26,9 @@ const Filters = () => {
             const ProductsFilter = data ? data.filter(e => e.category.name === Filter) : []
             dispatch(setFilterProducts(ProductsFilter))
             console.log(ProductsFilter)
+        }else{
+            dispatch(setFilterProducts(data))
+            //dispatch(setProductName(""))
         }
     }
 
@@ -42,7 +45,7 @@ const Filters = () => {
                 { FilterPrice?<i className='bx bx-chevron-up'></i>:<i className='bx bx-chevron-down'></i>}
             </div>
             {FilterCategory&&<ul>
-                <Link to={''} className='Filter' onClick={() => dispatch(dispatch(setProductName("")))}>All Products</Link>
+                <Link to={''} className='Filter' onClick={() => setProducts("")}>All Products</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smart TV")}>Smart TV</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Computers")}>Computers</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smartphones")}>Smartphones</Link>

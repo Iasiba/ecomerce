@@ -34,6 +34,7 @@ let aux=[]
       aux=[]
     }else{
       dispatch(setFilterProducts(Data))
+      console.log("todos los productos ")
     }
   }, [ProductName])
   
