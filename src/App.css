@@ -77,12 +77,12 @@ Link {
 /*Filters*/
 .Filters {
   background-color: rgb(255, 255, 255);
-  position: absolute;
-  height: 370px;
+  height: auto;
   width: 230px;
   position: sticky;
-  top: 100px;
+  top: 80px;
   z-index: 1;
+  padding: 10px;
 }
 
 .Filters>ul {
@@ -100,6 +100,35 @@ Link {
 .Filters>ul>.Filter:hover {
   color: rgb(160, 160, 160);
 }
+.FILTER{
+  position: fixed;
+  /*opacity: 0;
+  visibility: hidden;*/
+  cursor: pointer;
+  visibility: visible;
+  right: 1.5vw;
+  top: 88px;
+  opacity: 1;
+  z-index: 5;
+}
+.FILTER:hover{
+ color: #ccc;
+}
+@media (max-width: 1150px) {
+  .Filters {
+    position: fixed;
+    right: 0px;
+    box-shadow: 0 0 1px rgb(255, 98, 7);
+    visibility: visible;
+  }
+
+}
+@media (min-width: 1150px) {
+  .FILTER {
+    top: 98px;
+  }
+
+}
 
 
 .FilterSearch>div {
@@ -111,6 +140,13 @@ Link {
 
 .FilterSearch>div>input {
   height: 35px;
+  width: 77%;
+  background-color: transparent;
+}
+h2{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .Price,
@@ -120,8 +156,8 @@ Link {
   box-shadow: 0 0 1px rgb(255, 98, 7);
   padding: 0 5px;
   margin-top: 10px;
+  cursor: pointer;
 }
-
 /*product search*/
 .ProductSearch {
   width: 90%;
@@ -133,7 +169,7 @@ Link {
 
 .ProductSearch>input {
   text-align: center;
-  width: 100%;
+  width: 80%;
 }
 
 .ProductSearch>input,
@@ -540,6 +576,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .Footer>div {

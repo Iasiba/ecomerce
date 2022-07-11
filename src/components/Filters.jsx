@@ -6,7 +6,10 @@ import usehook from '../hooks/usehook'
 import { setFilter } from '../store/slices/FilterSlice'
 import { useSelector } from 'react-redux/es/exports'
 import { setFilterProducts } from '../store/slices/ProductsFilterSlice'
+import { useState } from 'react'
 const Filters = () => {
+    const [FilterPrice, setFilterPrice] = useState(false)
+    const [FilterCategory, setFilterCategory] = useState(false)
     const dispatch = useDispatch()
     const { data } = usehook()
     const Filter = useSelector(state => state.Filter)
@@ -26,28 +29,24 @@ const Filters = () => {
         }
     }
 
-
-
-
-
     return (
         <aside className='Filters'>
-            <h2>Filter</h2>
-            <div className='Price'>
-                <h2>Price</h2>
-                <i className='bx bx-chevron-up'></i>
+            <h2 >Filter</h2>
+            <div className='Price'onClick={()=>setFilterPrice(!FilterPrice)}>
+                <h2 >Price</h2>
+                { FilterPrice?<i className='bx bx-chevron-up'></i>:<i className='bx bx-chevron-down'></i>}
             </div>
-            <FormFilter />
-            <div className='Category'>
-                <h2>Category</h2>
-                <i className='bx bx-chevron-up'></i>
+            {FilterPrice&&<FormFilter />}
+            <div className='Category'onClick={()=>setFilterCategory(!FilterCategory)}>
+                <h2 >Category</h2>
+                { FilterPrice?<i className='bx bx-chevron-up'></i>:<i className='bx bx-chevron-down'></i>}
             </div>
-            <ul>
+            {FilterCategory&&<ul>
                 <Link to={''} className='Filter' onClick={() => setProducts("")}>All Products</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smart TV")}>Smart TV</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Computers")}>Computers</Link>
                 <Link to={''} className='Filter' onClick={() => setProducts("Smartphones")}>Smartphones</Link>
-            </ul>
+            </ul>}
         </aside>
     )
 }
